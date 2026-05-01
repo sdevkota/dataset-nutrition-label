@@ -2,7 +2,7 @@
 
 Machine-readable labels for AI dataset risk, license, consent, and coverage.
 
-> Version: 1.0.0 | License: MIT | Status: production-oriented v1 foundation
+> Version: 2.0.0 | Runtime: Python | License: MIT | Status: production-oriented v2 foundation
 
 ## Problem
 
@@ -12,29 +12,25 @@ Dataset documentation is inconsistent, hard to compare, and often absent from au
 
 A label validator that enforces structured documentation for composition, collection method, consent, license, limitations, and intended use.
 
-Dataset Nutrition Label ships as a small, dependency-free CLI and library. It validates a domain-specific JSON packet, emits actionable findings, and gives contributors a concrete surface for adding adapters, richer checks, schemas, and integrations.
-
-## Who it is for
-
-Dataset publishers, open ML communities, model governance teams.
+Dataset Nutrition Label is now Python-first. It ships as a dependency-free Python package and CLI that validates a domain-specific JSON packet, emits actionable findings, and gives contributors a practical foundation for adapters, datasets, evals, and workflow integrations.
 
 ## Quick start
 
 ```bash
-npm test
-npm start -- sample
+python3 -m unittest discover -s tests
+python3 -m dataset_nutrition_label.cli sample
 ```
 
 Analyze your own packet:
 
 ```bash
-dataset-nutrition-label ./packet.json
+python3 -m dataset_nutrition_label.cli ./packet.json
 ```
 
 Or pipe JSON:
 
 ```bash
-cat packet.json | node src/cli.js
+cat packet.json | python3 -m dataset_nutrition_label.cli
 ```
 
 ## Example packet
@@ -61,10 +57,10 @@ cat packet.json | node src/cli.js
 
 ## Library usage
 
-```js
-const { analyze } = require("./src/index.js");
+```python
+from dataset_nutrition_label import analyze
 
-const report = analyze({
+report = analyze({
   "dataset": {
     "name": "street-trees",
     "version": "1.0.0"
@@ -80,33 +76,24 @@ const report = analyze({
       "urban_bias"
     ]
   }
-});
-console.log(report.summary);
+})
+print(report["summary"])
 ```
 
-## v1 behavior
+## v2 behavior
 
+- Python-first CLI and importable library.
 - Validates required fields for the domain packet.
 - Scores readiness from 0 to 100.
 - Reports missing or weak governance evidence.
-- Suggests next actions and contributor extension points.
 - Runs fully offline with no API keys and no network access.
 
 ## Contribution map
-
-Good first contributions:
 
 - Add Hugging Face card export.
 - Add schema registry.
 - Add coverage metrics.
 - Add license compatibility checks.
-
-Larger contributions:
-
-- Add a JSON Schema and compatibility tests.
-- Build import/export adapters for popular AI frameworks.
-- Add real-world fixtures from public, non-sensitive examples.
-- Improve scoring with transparent, documented heuristics.
 
 ## Project principles
 
@@ -114,11 +101,3 @@ Larger contributions:
 - Open standards over vendor lock-in.
 - Auditable decisions over hidden magic.
 - Privacy and safety as design constraints, not release notes.
-
-## GitHub Pages
-
-The marketing site lives in `site/index.html`. Enable GitHub Pages from the `site` folder or use the included Pages workflow after publishing.
-
-## Security
-
-This project does not process secrets by default. If you build adapters that touch production systems, keep least privilege, explicit consent, and auditable logs in the design.

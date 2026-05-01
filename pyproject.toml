@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dataset-nutrition-label"
+version = "2.0.0"
+description = "Machine-readable labels for AI dataset risk, license, consent, and coverage."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Dataset Nutrition Label contributors" }]
+keywords = ["ai", "agents", "governance", "safety", "open-source"]
+
+[project.scripts]
+"dataset-nutrition-label" = "dataset_nutrition_label.cli:main"
+
+[project.urls]
+Homepage = "https://sdevkota.github.io/dataset-nutrition-label/"
+Repository = "https://github.com/sdevkota/dataset-nutrition-label"
+Issues = "https://github.com/sdevkota/dataset-nutrition-label/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
